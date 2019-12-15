@@ -1,5 +1,5 @@
 # Projet Simulation - Ascenseur
 
-### *Université Paris-Dauphine* -  **Mehdi EL AYADI - Zakarya BOUALI**
+### *Université Paris-Dauphine*
 
 Cours de Java Objet

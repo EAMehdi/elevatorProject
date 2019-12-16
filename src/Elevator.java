@@ -1,6 +1,6 @@
 public class Elevator{
   private static int count = 0;
-  private int idElevator, currentStep, minStep, maStep, nbPassagers;
+  private int idElevator, currentStep, minStep, maxStep, nbPassagers;
   private boolean working;
   private enum state{wait,goUp,goDown};
 

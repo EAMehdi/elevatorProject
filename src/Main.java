@@ -59,7 +59,6 @@ public class Main{
         System.out.println(choix3);
         System.out.println(choix4 + "\n-------------");
       }
-
       catch(InputMismatchException  e){
         System.out.println("Vous n'avez pas entrer un int !");
         scanner.next(); // clear le scanner

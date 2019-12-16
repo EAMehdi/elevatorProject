@@ -3,20 +3,16 @@
 
 Possibilité n°1:
 
-
 Un ascenseur ne peut que monter OU descendre. On va privatiser un ascenseur à la montée ou la descente. Par exemple, un ascenseur dédié à la monter, une fois arrivé à l’étage le plus haut va redescendre jusqu'en bas sans marquer d'arrêt. 
-
 
 L'avantage et que le temps d’attente pour monter ou descendre est plus court puisque l'ascenseur ne va faire qu’un aller avec arrêt et non deux.
 
-
 De plus, il pourra être possible de privatiser les ascenseurs selon le moment de la journée.
-
 
 Par exemple:
 *  3 ascenseurs sur 4 le matin en sens monter,
 *  2 ascenseurs sur 4 l'après-midi  en sens monter,
 *  1 ascenseur sur 4 en fin d'après-midi en sens monter;
 
-
 Ainsi on peut adapter la circulation des ascenseurs a la demande des personnes de l’université.
+

@@ -3,7 +3,8 @@
 
 Possibilité n°1:
 
-Un ascenseur ne peut que monter OU descendre. On va privatiser un ascenseur à la montée ou la descente. Par exemple, un ascenseur dédié à la monter, une fois arrivé à l’étage le plus haut va redescendre jusqu'en bas sans marquer d'arrêt. 
+Un ascenseur ne peut que monter OU descendre. On va privatiser un ascenseur à la montée ou la descente. 
+Par exemple, un ascenseur dédié à la monter, une fois arrivé à l’étage le plus haut va redescendre jusqu'en bas sans marquer d'arrêt. 
 
 L'avantage et que le temps d’attente pour monter ou descendre est plus court puisque l'ascenseur ne va faire qu’un aller avec arrêt et non deux.
 

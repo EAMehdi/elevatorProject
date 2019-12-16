@@ -1,15 +1,15 @@
 public class Personne{
   private static int count = 0;
-  private int id, initStep,finalStep ;
+  private int idPersonne, initStep,finalStep ;
 
   public Personne(){
-    setId(count++);
+    setIdPersonne(count++);
   }
 
-  public int getId(){
-    return this.id;
+  public int getIdPersonne(){
+    return this.idPersonne;
   }
-  private void setId(){
-    this.id= id;
+  private void setIdPersonne(int id){
+    this.idPersonne= id;
   }
 }

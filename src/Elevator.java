@@ -1,11 +1,11 @@
 public class Elevator{
   private static int count = 0;
-  private int id, currentStep, minStep, maStep, nbPassagers;
+  private int idElevator, currentStep, minStep, maStep, nbPassagers;
   private boolean working;
-  private enum state
+  private enum state{wait,goUp,goDown};
 
   public Elevator(){
-    setId(count++);
+    setIdElevator(count++);
     working = true;
   }
   public Elevator(int min, int max){
@@ -14,19 +14,15 @@ public class Elevator{
     this.minStep=max;
   }
 
-  public void setId(){
-    return this.id;
+  public int getIdElevator(){
+    return this.idElevator;
   }
-  public void setId(){
-    this.id = id;
+
+  public void setIdElevator(int id){
+    this.idElevator = id;
   }
 
   public int getCurrentStep(){
     return currentStep;
   }
-
-  public enum getState(){
-    return state;
-  }
-
 }

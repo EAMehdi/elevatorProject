@@ -32,6 +32,7 @@ un autre. Une personne sera donc identifiée par un identifiant, le pas de temps
 appellera l’ascenseur, l’étage où il se trouve et l’étage où il désire aller. La simulation s’arrête soit au
 bout d’un nombre de pas de temps maximum, soit quand toutes les personnes ont été transportées à
 l’étage souhaité.
+
 Vous devrez finalement implémenter un système centralisé qui décide quel ascenseur doit se charger d’une requête. Ce système représente donc la politique avec laquelle vous utilisez vos ascenseurs.
 Attention, on essaiera ici d’être réaliste : la politique utilisera évidemment l’étage où se trouve la personne et si la personne souhaite monter ou descendre, mais évidemment, le système ne devrait pas
 connaître l’étage souhaité avant que la personne ne soit montée dans un ascenseur. Par contre, pour
@@ -84,13 +85,8 @@ puisque votre force de travail augmente de 50%, la notation sera beaucoup plus s
 L’évaluation portera sur la qualité de la structure de votre implémentation, sur la qualité de vos
 algorithmes (c’est un cours de programmation orientée objet), sur l’utilisation de ce qu’on a vu en
 cours, sur votre rapport, ainsi que sur une soutenance (qui sera organisée après la semaine d’examen).
-MIDO
-Mathématiqes et Informatiqe
-de la décision et des organisations
 
-Licence 3 MI2E – 2018–2019
-
-Introduction à la programmation en Java
+==========================
 
 Cette soutenance ne demande aucune préparation de votre part. Elle durera une douzaine/quinzaine de
 minutes par groupe. La soutenance consistera en un échange au sujet de vos résultats, votre rapport, et
@@ -105,4 +101,3 @@ MIDO
 Mathématiqes et Informatiqe
 de la décision et des organisations
 
-

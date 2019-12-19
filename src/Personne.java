@@ -1,4 +1,5 @@
-public class Personne{
+public class Personne
+{
   private static int count = 0;
   private int idPersonne, step , startFloor, endFloor;
   // step = pas de temps à partir de l'ascenceur
@@ -10,12 +11,9 @@ public class Personne{
     this.endFloor=theEndFloor;
   }
 
-  public int getIdPersonne(){
+  public int getIdPersonne()
+  {
     return this.idPersonne;
-  }
-
-  private void setIdPersonne(int id){
-    this.idPersonne= id;
   }
 
   public int getStep()

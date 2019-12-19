@@ -1,6 +1,5 @@
 import java.io.File;
 import java.util.*;
-import PersonneSorter.java;
 
 public abstract class FileRead{
 
@@ -68,21 +67,7 @@ public abstract class FileRead{
           return a.getStep()- b.getStep();
         }
       };
-
-
-      for(Personne p : mylistePersonne){
-        System.out.println(p.getIdPersonne()+ " " +p.getStep());
-      }
-
-      ArrayList<Personne> sortedList = mylistePersonne.getSortedListPersonne();
-      System.out.println("################");
-
-
-      for(Personne p : sortedList){
-        System.out.println(p.getIdPersonne()+ " " +p.getStep());
-      }
-
-
+      
       return sortedList;
     }
   }

@@ -42,17 +42,10 @@ public class Personne{
   }
 
   public static Comparator<Personne> stepComparator = new Comparator<Personne>() {
-
-  @Override
-  public int compare(Personne p1, Personne p2) {
-
-    return (p2.getStep() < p1.getStep() ? -1 :
-
-            (p2.getStep() == p1.getStep() ? 0 : 1));
-
-  }
-
-};
-
-
+    @Override
+    public int compare(Personne p1, Personne p2) {
+      return (p2.getStep() > p1.getStep() ? -1 :
+      (p2.getStep() == p1.getStep() ? 0 : 1));
+    }
+  };
 }

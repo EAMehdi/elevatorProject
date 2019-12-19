@@ -12,6 +12,12 @@ public abstract class FileRead{
     return b;
   }
 
+  private static boolean isPersonFileHere(){
+    String path = new File("").getAbsolutePath();
+    boolean b = new File(path + "/config/personne.txt").exists();
+    return b;
+  }
+
   public static Map readConfig() throws Exception{
     if(!isConfigHere()){
       throw new Exception("Error FileRead: Le fichier config.txt n'est pas dans le dossier config");
@@ -34,6 +40,25 @@ public abstract class FileRead{
     }
   }
 
-  // public interface DataFile{
-  //   public int nbFloors,nbLifts,capacity,velocity;
+  // 
+  // public static TreeSet readPersonFile() throws Exception{
+  //   if(!isPersonFileHere()){
+  //     throw new Exception("Error FileRead: Le fichier config.txt n'est pas dans le dossier config");
+  //   }
+  //   else{
+  //     TreeSet<String, Integer> configValues = new TreeSet<>();
+  //     String path = new File("").getAbsolutePath();
+  //     File file = new File(path+"/config/config.txt");
+  //     Scanner sc = new Scanner(file);
+  //     String line;
+  //
+  //     while (sc.hasNextLine()){
+  //       line = sc.nextLine();
+  //       int value = Integer.valueOf(line.replaceAll("[^0-9]", ""));
+  //       String key = line.replaceAll("[^a-zA-Z]", "");
+  //       configValues.put(key, value);
+  //     }
+  //     return configValues;
+  //   }
+  //   }
   // }

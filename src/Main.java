@@ -33,6 +33,7 @@ public class Main {
       try{
 
         choice = scanner.nextInt();
+        System.out.println("");
         switch (choice) {
           case 1:
           System.out.println("Bravo choix = 1\n");
@@ -52,6 +53,8 @@ public class Main {
           break;
           case 2:
           System.out.println("Super choix = 2\n");
+          Controller c = new Controller();
+          c.addElevators();
           break;
           case 3:
           System.out.println("Incroyable choxi = 3\n");

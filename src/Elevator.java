@@ -16,6 +16,17 @@ public class Elevator
     this.velocity=vly;
   }
 
+  public Elevator(int maxF, int maxP, int vly)
+  {
+    this.idElevator= this.count++;
+    this.currentFloor=0;
+    this.minFloor= 0; // les étages sont numérotés de 0 à n
+    this.maxFloor=maxF;
+    this.nbPassagers=0;
+    this.maxPassagers=maxP;
+    this.velocity=vly;
+  }
+
   public int getIdElevator() // Retourne l'id de l'ascenseur (int)
   {
     return this.idElevator;
@@ -83,5 +94,10 @@ public class Elevator
   public void setVelocity(int newVelocity)
   {
     this.velocity=newVelocity;
+  }
+
+  @Override
+  public String toString(){
+    return this.idElevator + " " + this.velocity;
   }
 }

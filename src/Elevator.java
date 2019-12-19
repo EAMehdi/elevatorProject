@@ -25,14 +25,21 @@ public class Elevator
   {
     return this.currentFloor;
   }
-  public void setCurrentFloor(int newCurrentFloor)
+  public void setCurrentFloor(int newCurrentFloor) throws IllegalArgumentException
   {
-    this.currentFloor=newCurrentFloor;
+    if (newCurrentFloor<this.getMinFloor() || newCurrentFloor>this.getMaxFloor())
+        throw new IllegalArgumentException("Cet étage n'existe pas !!");
+    else
+        this.currentFloor=newCurrentFloor;
   }
 
   public int getMinFloor() //Retourne l'étage le plus bas (int)
   {
     return this.minFloor;
+  }
+  public void setMinFloor(int newMinFloor)
+  {
+    this.minFloor=newMinFloor;
   }
 
   public int getMaxFloor() //Retourne l'étage le plus haut (int)
@@ -48,18 +55,33 @@ public class Elevator
   {
     return this.nbPassagers;
   }
-  public void setNbPassagers(int newNbPassagers)
+  public void setNbPassagers(int newNbPassagers)throws IllegalArgumentException
   {
-    this.nbPassagers=newNbPassagers;
+    int nbPassagerPasMonter=newNbPassagers -(this.getMaxPassagers());
+    if( newNbPassagers > this.getMaxPassagers())
+    {
+        this.nbPassagers=this.getMaxPassagers();
+        throw new IllegalArgumentException("L'ascenseur ne peut pas prendre tout le monde !! Il y " + nbPassagerPasMonter + " passagers qui n'ont pas pu monter.");
+    }
+    else
+        this.nbPassagers=newNbPassagers;
   }
 
   public int getMaxPassagers() //Retourne le nombre de passagers maximum par ascenseur (int)
   {
     return this.maxPassagers  ;
   }
+  public void setMaxPassagers(int newMaxPassagers)
+  {
+    this.maxPassagers=newMaxPassagers;
+  }
 
   public int getVelocity() //Retourne le nombre de pas de temps nécessaire passer à l'étage suivant ou précédant.
   {
     return this.velocity;
+  }
+  public void setVelocity(int newVelocity)
+  {
+    this.velocity=newVelocity;
   }
 }

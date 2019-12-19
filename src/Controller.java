@@ -35,10 +35,10 @@ public class Controller{
 
 
   }
-  
+
   // ajout random loi de poisson
   private void addPersonnes(ArrayList lP){
-    this.listPersonne= lP
+    this.listPersonne= lP;
   }
 
   // ajout from file
@@ -46,7 +46,7 @@ public class Controller{
     ArrayList<Personne> fileList = new ArrayList<>();
     try{
       fileList = FileRead.readPersonFile();
-      this.listPersonne= lP
+      this.listPersonne= fileList;
     }
     catch(Exception e){
       System.out.println(e.getMessage());

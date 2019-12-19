@@ -1,5 +1,6 @@
 import java.io.File;
 import java.util.*;
+import PersonneSorter.java;
 
 public abstract class FileRead{
 
@@ -41,7 +42,7 @@ public abstract class FileRead{
       throw new Exception("Error FileRead: Le fichier personne.txt n'est pas dans le dossier config");
     }
     else{
-      ArrayList<Personne> listePersonne = new ArrayList<>();
+      ArrayList<Personne> mylistePersonne = new ArrayList<>();
 
       String path = new File("").getAbsolutePath();
       File file = new File(path+"/config/personne.txt");
@@ -59,10 +60,30 @@ public abstract class FileRead{
           tabInt[i]=Integer.valueOf(s);
           i++;
         }
-        listePersonne.add(new Personne (tabInt[0],tabInt[1],tabInt[2],tabInt[3]));
+        mylistePersonne.add(new Personne (tabInt[0],tabInt[1],tabInt[2],tabInt[3]));
       }
 
-      return listePersonne;
+      Comparator<Personne> comp = new Comparator<Personne>(){
+        public int compare(Personne a, Personne b){
+          return a.getStep()- b.getStep();
+        }
+      };
+
+
+      for(Personne p : mylistePersonne){
+        System.out.println(p.getIdPersonne()+ " " +p.getStep());
+      }
+
+      ArrayList<Personne> sortedList = mylistePersonne.getSortedListPersonne();
+      System.out.println("################");
+
+
+      for(Personne p : sortedList){
+        System.out.println(p.getIdPersonne()+ " " +p.getStep());
+      }
+
+
+      return sortedList;
     }
   }
 

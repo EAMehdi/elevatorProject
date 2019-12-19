@@ -57,7 +57,7 @@ public class Elevator
   }
   public void setNbPassagers(int newNbPassagers)throws IllegalArgumentException
   {
-    int nbPassagerPasMonter=newNbPassagers -(this.getMaxPassagers());
+    int nbPassagerPasMonter= newNbPassagers - (this.getMaxPassagers());
     if( newNbPassagers > this.getMaxPassagers())
     {
         this.nbPassagers=this.getMaxPassagers();

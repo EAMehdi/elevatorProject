@@ -8,7 +8,7 @@ public class PersonneSorter {
     this.listPer = listOfPer;
   }
 
-  public ArrayList<Personne> getSortedListPersonne() {
+  public ArrayList<Personne> getSortByStep() {
     Collections.sort(listPer,Personne.stepComparator);
     return listPer;
 

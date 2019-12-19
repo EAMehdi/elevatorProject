@@ -61,12 +61,9 @@ public abstract class FileRead{
         }
         mylistePersonne.add(new Personne (tabInt[0],tabInt[1],tabInt[2],tabInt[3]));
       }
-
-      Comparator<Personne> comp = new Comparator<Personne>(){
-        public int compare(Personne a, Personne b){
-          return a.getStep()- b.getStep();
-        }
-      };
+      
+      PersonneSorter sortedP = new PersonneSorter(mylistePersonne);
+      ArrayList<Personne> sortedList = sortedP.getSortByStep();
 
       return sortedList;
     }

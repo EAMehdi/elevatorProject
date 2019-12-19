@@ -1,6 +1,7 @@
 public class Personne{
   private static int count = 0;
-  private int idPersonne, step, startFloor, endFloor;
+  private int idPersonne, step , startFloor, endFloor;
+  // step = pas de temps à partir de l'ascenceur
 
   public Personne(int theStep, int theStartFloor, int theEndFloor){
     this.idPersonne= this.count++;

@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Main{
+public class Main {
   public static void main (String[] args){
 
     // Open Menu Principale
@@ -10,7 +10,7 @@ public class Main{
   public static void menu(){
 
     // Set all the displayed String
-    String choix1 = "Tapez 1";
+    String choix1 = "Read Config.txt, Tapez 1";
     String choix2 = "Tapez 2";
     String choix3 = "Tapez 3";
     String choix4 = "Tapez 4";
@@ -36,6 +36,19 @@ public class Main{
         switch (choice) {
           case 1:
           System.out.println("Bravo choix = 1\n");
+          try{
+            Map<String, Integer> test = new HashMap<>();
+            test = FileRead.readConfig();
+
+            for(Map.Entry<String, Integer> entry : test.entrySet()) {
+              System.out.println(entry.getKey());
+              System.out.println(entry.getValue());
+            }
+
+          }
+          catch(Exception e){
+            System.out.println(e);
+          }
           break;
           case 2:
           System.out.println("Super choix = 2\n");
@@ -59,7 +72,7 @@ public class Main{
         System.out.println(choix3);
         System.out.println(choix4 + "\n-------------");
       }
-      
+
       catch(InputMismatchException  e){
         System.out.println("Vous n'avez pas entrer un int !");
         scanner.next(); // clear le scanner

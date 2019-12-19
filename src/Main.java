@@ -53,8 +53,13 @@ public class Main {
           break;
           case 2:
           System.out.println("Super choix = 2\n");
-          Controller c = new Controller();
-          c.addElevators();
+          try{
+            ArrayList<Personne> s = new ArrayList<>();
+            s = FileRead.readPersonFile();
+          }
+          catch(Exception e){
+            System.out.println(e);
+          }
           break;
           case 3:
           System.out.println("Incroyable choxi = 3\n");

@@ -9,6 +9,12 @@ public class Personne{
     this.startFloor=theStartFloor;
     this.endFloor=theEndFloor;
   }
+  public Personne(int id, int theStep, int theStartFloor, int theEndFloor){
+    this.idPersonne= id;
+    this.step=theStep;
+    this.startFloor=theStartFloor;
+    this.endFloor=theEndFloor;
+  }
 
   public int getIdPersonne(){
     return this.idPersonne;
@@ -32,4 +38,6 @@ public class Personne{
   {
     return this.endFloor;
   }
+
+
 }

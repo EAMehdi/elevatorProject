@@ -1,3 +1,5 @@
+import java.util.Comparator;
+
 public class Personne{
   private static int count = 0;
   private int idPersonne, step , startFloor, endFloor;
@@ -39,5 +41,11 @@ public class Personne{
     return this.endFloor;
   }
 
-
+  public static Comparator<Personne> stepComparator = new Comparator<Personne>() {
+    @Override
+    public int compare(Personne p1, Personne p2) {
+      return (p2.getStep() > p1.getStep() ? -1 :
+      (p2.getStep() == p1.getStep() ? 0 : 1));
+    }
+  };
 }

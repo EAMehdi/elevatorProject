@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Controller{
+public class Controller implements TransfertTime{
   private ArrayList<Elevator> listElevator;
   private ArrayList <Personne> listPersonne;
 
@@ -31,11 +31,10 @@ public class Controller{
       }
     }
 
-
   }
 
   // ajout random loi de poisson
-  private void addPersonnes(ArrayList lP){
+  private void addPersonnesRandom(ArrayList lP){
     this.listPersonne= lP;
   }
 
@@ -49,6 +48,13 @@ public class Controller{
     catch(Exception e){
       System.out.println(e.getMessage());
     }
+  }
+
+  public int compute(int in, int out, int stay){
+    if(in+out > stay){
+      return stay-in-out;
+    }
+    return in+out;
   }
 
 }

@@ -1,8 +1,5 @@
-public interface TransferTime{
+public interface TransfertTime{
 
-public int compute(int in int out, int stay){
-
-
-}
+public int compute(int in, int out, int stay);
 
 }

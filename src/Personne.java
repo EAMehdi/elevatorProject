@@ -3,6 +3,8 @@ import java.util.Comparator;
 public class Personne{
   private static int count = 0;
   private int idPersonne, step , startFloor, endFloor;
+  private enum Direction {UP,DOWN};
+  private Direction dir;
   // step = pas de temps à partir de l'ascenceur
 
   public Personne(int theStep, int theStartFloor, int theEndFloor){
@@ -10,12 +12,14 @@ public class Personne{
     this.step=theStep;
     this.startFloor=theStartFloor;
     this.endFloor=theEndFloor;
+    setDirection();
   }
   public Personne(int id, int theStep, int theStartFloor, int theEndFloor){
     this.idPersonne= id;
     this.step=theStep;
     this.startFloor=theStartFloor;
-    this.endFloor=theEndFloor;
+    setEndFloor(theEndFloor);
+    setDirection();
   }
 
   public int getIdPersonne(){
@@ -40,6 +44,28 @@ public class Personne{
   {
     return this.endFloor;
   }
+
+  private void setEndFloor(int i){
+    if(this.getStartFloor() == i){
+      i++;
+    }
+    this.endFloor=i;
+  }
+
+  private void setDirection(){
+    if(getStartFloor() < getEndFloor()){
+      this.dir=Direction.UP;
+    }
+    else{
+      this.dir=Direction.DOWN;
+    }
+  }
+  public boolean isGoingUp(){
+    if(this.dir == Direction.UP)
+      return true;
+    return false;
+  }
+
 
   public static Comparator<Personne> stepComparator = new Comparator<Personne>() {
     @Override

@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Controller{
+public abstract class Controller{
   ArrayList<Elevator> listElevator;
   ArrayList <Personne> listPersonne;
 

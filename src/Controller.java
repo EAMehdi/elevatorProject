@@ -1,8 +1,8 @@
 import java.util.*;
 
 public class Controller{
-  ArrayList<Elevator> listElevator;
-  ArrayList <Personne> listPersonne;
+  private ArrayList<Elevator> listElevator;
+  private ArrayList <Personne> listPersonne;
 
   public Controller(){
     listElevator = new ArrayList<>();

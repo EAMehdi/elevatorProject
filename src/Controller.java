@@ -50,6 +50,13 @@ public class Controller implements TransfertTime{
     }
   }
 
+  public  ArrayList <Personne> getListPersonne(){
+    return this.listPersonne;
+  }
+  public  ArrayList <Elevator> getListElevator(){
+    return this.listElevator;
+  }
+
   public int compute(int in, int out, int stay){
     if(in+out > stay){
       return stay-in-out;

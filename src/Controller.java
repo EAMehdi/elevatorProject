@@ -34,12 +34,12 @@ public class Controller implements TransfertTime{
   }
 
   // ajout random loi de poisson
-  private void addPersonnesRandom(ArrayList lP){
+  public void addPersonnesRandom(ArrayList lP){
     this.listPersonne= lP;
   }
 
   // ajout from file
-  private void addPersonnesFromFile(){
+  public void addPersonnesFromFile(){
     ArrayList<Personne> fileList = new ArrayList<>();
     try{
       fileList = FileRead.readPersonFile();
@@ -48,6 +48,13 @@ public class Controller implements TransfertTime{
     catch(Exception e){
       System.out.println(e.getMessage());
     }
+  }
+
+  public  ArrayList <Personne> getListPersonne(){
+    return this.listPersonne;
+  }
+  public  ArrayList <Elevator> getListElevator(){
+    return this.listElevator;
   }
 
   public int compute(int in, int out, int stay){

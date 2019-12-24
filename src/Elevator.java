@@ -24,7 +24,7 @@ public class Elevator
   {
     this.currentFloor=0;
     this.nbPassagers=0;
-    this.state=ElevatorState.wait;  
+    this.state=ElevatorState.wait;
     this.timeStep=0;
 
     this.idElevator= this.count++;
@@ -86,13 +86,13 @@ public class Elevator
   }
 
 
-  public void setTimeStep(int newTimeStep){
+  public void addTimeStep(int newTimeStep){
     if(newTimeStep <0)
     {
       this.timeStep=0;
     }
     else
-    this.timeStep = newTimeStep;
+    this.timeStep += newTimeStep;
   }
 
 

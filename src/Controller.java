@@ -51,10 +51,10 @@ public class Controller implements TransfertTime{
   }
 
   public  ArrayList <Personne> getListPersonne(){
-    return this.listPersonne;
+    return this.listPersonne_Controller;
   }
   public  ArrayList <Elevator> getListElevator(){
-    return this.listElevator;
+    return this.listElevator_Controller;
   }
 
   public int compute(int in, int out, int stay){

@@ -24,7 +24,7 @@ public class Elevator
   {
     this.currentFloor=0;
     this.nbPassagers=0;
-    this.state=ElevatorState.wait;  
+    this.state=ElevatorState.wait;
     this.timeStep=0;
 
     this.idElevator= this.count++;

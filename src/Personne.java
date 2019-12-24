@@ -30,10 +30,10 @@ public class Personne{
     this.idPersonne= id;
   }
 
-  public int getStep()
-  {
-    return this.step;
-  }
+    public int getStep()
+    {
+      return this.step;
+    }
 
   public int getStartFloor()
   {

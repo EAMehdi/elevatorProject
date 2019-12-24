@@ -66,22 +66,36 @@ public class Controller_Politique1 extends Controller{
 
 
       for(Elevator el : notBlockedElevators){
-        if(el.getCurrentFloor() < el.getNextDestination()){
-          el.stepUp();
-          el.setState("up");
-        }
-        else if(el.getCurrentFloor() > el.getNextDestination()){
-          el.stepDown();
-          el.setState("down");
-        }
-        else if(el.getCurrentFloor() == el.getNextDestination()){
+        if(el.getListDestinations().isEmpty()){
           el.setState("wait");
-          //
-          // for(Personne p : listBestE){
-          //   bestElevator(p,getListElevator_Controller()).addDestination(p.getStartFloor());
-          //   }
-          // }
         }
+        else{
+          if(el.getCurrentFloor() < el.getNextDestination()){
+            el.stepUp();
+            el.setState("up");
+          }
+          else if(el.getCurrentFloor() > el.getNextDestination()){
+            el.stepDown();
+            el.setState("down");
+          }
+          else if(el.getCurrentFloor() == el.getNextDestination()){
+            el.setState("wait");
+            //
+            // for(Personne p : listBestE){
+            //   bestElevator(p,getListElevator_Controller()).addDestination(p.getStartFloor());
+            //   }
+            for(Map.Entry<Personne,Elevator> entry : listBestE.entrySet()){
+              Personne keyP = entry.getKey();
+              Elevator valueE = entry.getValue();
+
+              if(el.getIdElevator() == valueE.getIdElevator()){
+                boolean B = el.addPassager(keyP);
+                System.out.println(el + "         " + keyP.getIdPersonne());
+              }
+            }
+          }
+        }
+
       }
       step_sim++;
     }

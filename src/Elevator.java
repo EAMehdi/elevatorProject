@@ -17,6 +17,7 @@ public class Elevator
     this.lockTime=0;
     this.nbPassagers=nbrPa;
     this.destinations = new LinkedList<>();
+    this.listePassagers = new ArrayList<>();
 
     this.idElevator= this.count++;
     this.minFloor= 0; // les étages sont numérotés de 0 à n
@@ -32,7 +33,8 @@ public class Elevator
     this.state=ElevatorState.wait;
     this.lockTime=0;
     this.destinations = new LinkedList<>();
-
+    this.listePassagers = new ArrayList<>();
+    
     this.idElevator= this.count++;
     this.minFloor= 0; // les étages sont numérotés de 0 à n
     this.maxFloor=maxF;
@@ -94,9 +96,9 @@ public class Elevator
   }
 
   public boolean addPassager(Personne p){
-    if(listePassagers.size() >= getMaxPassagers())
+    if(this.listePassagers.size() >= this.getMaxPassagers())
     return false;
-    listePassagers.add(p);
+    this.listePassagers.add(p);
     return true;
   }
 

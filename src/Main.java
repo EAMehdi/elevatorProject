@@ -4,7 +4,9 @@ public class Main {
   public static void main (String[] args){
 
     // Open Menu Principale
-    menu();
+    //menu();
+    Controller_Politique1 cp= new Controller_Politique1();
+    cp.simulationPolitique1Until();
   }
 
   public static void menu(){

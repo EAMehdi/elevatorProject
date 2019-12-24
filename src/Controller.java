@@ -57,11 +57,11 @@ public class Controller implements TransfertTime{
     return in+out;
   }
 
-  protected List getListElevator_Controller(){
+  protected ArrayList<Elevator> getListElevator_Controller(){
     return this.listElevator_Controller;
   }
 
-  protected List getListPersonne_Controller(){
+  protected ArrayList<Personne> getListPersonne_Controller(){
     return this.listPersonne_Controller;
   }
 

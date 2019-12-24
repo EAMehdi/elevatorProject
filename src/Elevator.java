@@ -1,17 +1,22 @@
+import java.util.*;
+
 public class Elevator
 {
   private static int count = 0;
-  private int idElevator, currentFloor, minFloor, maxFloor, nbPassagers, maxPassagers, velocity,timeStep;
-  private boolean working;
-  private enum ElevatorState {wait,goUp,goDown,open};
+  private int idElevator, currentFloor, minFloor, maxFloor, nbPassagers, maxPassagers, velocity,lockTime;
+  private ArrayList<Personne> listePassagers;
+  private Queue<Integer> destinations;
+  private enum ElevatorState {wait,goUp,goDown};
   private ElevatorState state;
+
 
   public Elevator(int currentF, int maxF, int nbrPa, int maxP, int vly)
   {
     this.currentFloor=currentF;
     this.state=ElevatorState.wait;
-    this.timeStep=0;
+    this.lockTime=0;
     this.nbPassagers=nbrPa;
+    this.destinations = new LinkedList<>();
 
     this.idElevator= this.count++;
     this.minFloor= 0; // les étages sont numérotés de 0 à n
@@ -25,7 +30,8 @@ public class Elevator
     this.currentFloor=0;
     this.nbPassagers=0;
     this.state=ElevatorState.wait;
-    this.timeStep=0;
+    this.lockTime=0;
+    this.destinations = new LinkedList<>();
 
     this.idElevator= this.count++;
     this.minFloor= 0; // les étages sont numérotés de 0 à n
@@ -43,6 +49,8 @@ public class Elevator
   {
     return this.currentFloor;
   }
+
+
   public void setCurrentFloor(int newCurrentFloor) throws IllegalArgumentException
   {
     if (newCurrentFloor<this.getMinFloor() || newCurrentFloor>this.getMaxFloor())
@@ -85,26 +93,40 @@ public class Elevator
     this.nbPassagers=newNbPassagers;
   }
 
-
-  public void setTimeStep(int newTimeStep){
-    if(newTimeStep <0)
-    {
-      this.timeStep=0;
-    }
-    else
-    this.timeStep = newTimeStep;
+  public boolean addPassager(Personne p){
+    if(listePassagers.size() >= getMaxPassagers())
+    return false;
+    listePassagers.add(p);
+    return true;
   }
 
-
-  public void oneStepDone(){
-    if(this.timeStep-- <=0)
-    {
-      this.timeStep=0;
-    }
-    else
-    this.timeStep--;
+  public void addLockTime(int n){
+    this.lockTime+=n;
   }
 
+  public int getLockTime(){
+    return this.lockTime;
+  }
+
+  public void stepUp(){
+    setCurrentFloor(getCurrentFloor()+1);
+  }
+
+  public void stepDown(){
+    setCurrentFloor(getCurrentFloor()+1);
+  }
+
+  public void addDestination(int n){
+    this.destinations.add(n);
+  }
+
+  public int getNextDestination(){
+    return this.destinations.peek();
+  }
+
+  public Queue<Integer> getListDestinations(){
+    return this.destinations;
+  }
 
   public int getMaxPassagers() //Retourne le nombre de passagers maximum par ascenseur (int)
   {
@@ -123,7 +145,6 @@ public class Elevator
   {
     this.velocity=newVelocity;
   }
-
 
 
   public boolean isWaiting(){
@@ -145,8 +166,23 @@ public class Elevator
     return false;
   }
 
+  public void setState(String s){
+    switch(s){
+      case "up":
+      this.state= ElevatorState.goUp;
+      break;
+      case "down":
+      this.state= ElevatorState.goDown;
+      break;
+      case "wait":
+      this.state= ElevatorState.wait;
+      break;
+      default:
+      this.state= ElevatorState.wait;
+    }
 
-  @Override
+  }
+
   public String toString(){
     return this.idElevator + " " + this.velocity;
   }

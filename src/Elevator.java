@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Elevator
 {
-  private static int count = 0;
+  private static int count = 1;
   private int idElevator, currentFloor, minFloor, maxFloor, nbPassagers, maxPassagers, velocity,lockTime;
   private ArrayList<Personne> listePassagers;
   private Queue<Integer> destinations;
@@ -34,7 +34,7 @@ public class Elevator
     this.lockTime=0;
     this.destinations = new LinkedList<>();
     this.listePassagers = new ArrayList<>();
-    
+
     this.idElevator= this.count++;
     this.minFloor= 0; // les étages sont numérotés de 0 à n
     this.maxFloor=maxF;
@@ -79,9 +79,10 @@ public class Elevator
     this.maxFloor=newMaxFloor;
   }
 
-  public int getNbPassagers() //Retourne le nombre de passagers dans cet ascenseur (int)
+  //Retourne le nombre de passagers dans cet ascenseur (int)
+  public int getNbPassagers()
   {
-    return this.nbPassagers;
+    return this.listePassagers.size();
   }
   public void setNbPassagers(int newNbPassagers)throws IllegalArgumentException
   {
@@ -99,11 +100,30 @@ public class Elevator
     if(this.listePassagers.size() >= this.getMaxPassagers())
     return false;
     this.listePassagers.add(p);
+    setNbPassagers(getNbPassagers());
     return true;
+  }
+
+  public boolean removePassager(Personne p){
+    for(Personne pe : this.getListPassagers()){
+      if(pe.getIdPersonne() == p.getIdPersonne()){
+        this.listePassagers.remove(p);
+
+      }
+    }
+    return false;
+  }
+
+  public ArrayList<Personne> getListPassagers(){
+    return this.listePassagers;
   }
 
   public void addLockTime(int n){
     this.lockTime+=n;
+  }
+
+  public void setLockTime(int n){
+    this.lockTime=n;
   }
 
   public int getLockTime(){
@@ -115,7 +135,7 @@ public class Elevator
   }
 
   public void stepDown(){
-    setCurrentFloor(getCurrentFloor()+1);
+    setCurrentFloor(getCurrentFloor()-1);
   }
 
   public void addDestination(int n){
@@ -124,6 +144,10 @@ public class Elevator
 
   public int getNextDestination(){
     return this.destinations.peek();
+  }
+
+  public void removeDestination(){
+    this.destinations.remove();
   }
 
   public Queue<Integer> getListDestinations(){
@@ -186,7 +210,22 @@ public class Elevator
   }
 
   public String toString(){
-    return this.idElevator + " " + this.velocity;
+    String msg = "Elevator: "+this.idElevator;
+    msg+= " currentFloor: " + getCurrentFloor();
+    if(!this.listePassagers.isEmpty()){
+      msg+=" listePas:(";
+      for(Personne p : listePassagers){
+        msg+= p.getIdPersonne() + ",";
+      }
+      msg+=")";
+    }
+    if(!this.destinations.isEmpty()){
+      msg+=" + Destinations:(";
+      for(Integer i : this.destinations){
+        msg+= i + ",";
+      }
+      msg+=")";
+    }
+    return msg;
   }
-
 }

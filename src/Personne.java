@@ -35,6 +35,10 @@ public class Personne{
       return this.step;
     }
 
+    public void addNextStep(){
+      this.step++;
+    }
+
   public int getStartFloor()
   {
     return this.startFloor;
@@ -74,4 +78,9 @@ public class Personne{
       (p2.getStep() == p1.getStep() ? 0 : 1));
     }
   };
+
+  @Override
+  public String toString(){
+    return ("Personne " +  getIdPersonne() + ", at step: " + getStep());
+  }
 }

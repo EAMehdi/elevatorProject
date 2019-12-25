@@ -61,7 +61,7 @@ public abstract class FileRead{
         }
         mylistePersonne.add(new Personne (tabInt[0],tabInt[1],tabInt[2],tabInt[3]));
       }
-      
+
       PersonneSorter sortedP = new PersonneSorter(mylistePersonne);
       ArrayList<Personne> sortedList = sortedP.getSortByStep();
 

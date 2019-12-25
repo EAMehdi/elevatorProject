@@ -17,7 +17,7 @@ public class Controller implements TransfertTime{
       int velocity = configValues.get("velocity");
       int capMax = configValues.get("capacity");
 
-      for (int i=0 ; i<=configValues.get("nbLifts"); i++) {
+      for (int i=1 ; i<=configValues.get("nbLifts"); i++) {
         this.listElevator_Controller.add( new Elevator (maxFloor, capMax, velocity));
       }
 
@@ -61,7 +61,7 @@ public class Controller implements TransfertTime{
     if(in+out > stay){
       return stay-in-out;
     }
-    return in+out;
+    return 0;
   }
 
   protected ArrayList<Elevator> getListElevator_Controller(){

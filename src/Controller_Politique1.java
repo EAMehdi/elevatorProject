@@ -31,13 +31,19 @@ public class Controller_Politique1 extends Controller{
     // (K,V) ==> (idElevator , Liste<idPersonne>)
     //Map<Integer,Integer> inElevator = new HashMap<>();
 
-    ArrayList<Elevator> notBlockedElevators= new ArrayList<>();
+    ArrayList<Elevator> notBlockedElevators;
 
     Map<Personne,Elevator> listBestE;
+    listBestE = new HashMap<>();
 
 
     while(!stopSimulation){
+      notBlockedElevators= new ArrayList<>();
+
+      System.out.println("\n===========Step : " + step_sim + "========================");
+
       if(waitingList.isEmpty()){
+        System.out.println("\n °°°°°°°°°°°°°°°°°°°°°°END °°°°°°°°°°°°°°°°°°°");
         stopSimulation = true;
       }
       displayWaitingList(waitingList);
@@ -49,17 +55,19 @@ public class Controller_Politique1 extends Controller{
         }
       }
 
-      listBestE = new HashMap<>();
       // Une personne ne peut pas entrer car il y  a trop de monde, elle rappelle ==> Changer Step++
 
+      // Add the next destinations for the elevator
       for(Personne p : waitingList){
         if(p.getStep() == step_sim){
           Elevator theBest = bestElevator(p,getListElevator_Controller());
-          theBest.addDestination(p.getEndFloor());
-          System.out.println(theBest);
+          // If 2 personnes start from the same Floor, we remove it (doublon)
+          theBest.addDestinationNoDuplicate(p.getStartFloor());
           listBestE.put(p,theBest);
           //destinations.put(bestElevator(p,getListElevator_Controller()).getIdElevator(),p.getIdPersonne());
         }
+
+
       }
       System.out.println("ListeBE");
       for(Map.Entry<Personne,Elevator> entry : listBestE.entrySet()){
@@ -68,6 +76,8 @@ public class Controller_Politique1 extends Controller{
         Elevator valueE = entry.getValue();
         System.out.println(keyP + "  " +  valueE);
       }
+      System.out.println("--- FIn ListeBE");
+
 
 
       //
@@ -77,47 +87,63 @@ public class Controller_Politique1 extends Controller{
       //
       // }
 
+      for(Elevator el : notBlockedElevators){
+        System.out.println("In Not Blocked " + el);
+
+      }
+
 
       for(Elevator el : notBlockedElevators){
+        System.out.println("\nDeplace or Not Elevator");
         if(el.getListDestinations().isEmpty()){
           el.setState("wait");
         }
         else{
-          if(el.getCurrentFloor() < el.getNextDestination()){
-            el.stepUp();
-            System.out.println("hop hop hop");
-            el.setState("up");
-          }
-          else if(el.getCurrentFloor() > el.getNextDestination()){
-            System.out.println("descend !");
-            el.stepDown();
-            el.setState("down");
-          }
-          else if(el.getCurrentFloor() == el.getNextDestination()){
+          if(el.getCurrentFloor() == el.getNextDestination()){
+            System.out.println("Current Floor == NexDestination de " + el);
             el.setState("wait");
 
             el.removeDestination();
             System.out.println("YOLO");
 
             for(Map.Entry<Personne,Elevator> entry : listBestE.entrySet()){
+              System.out.println(entry.getKey() + " ######## " + entry.getValue());
+            }
+            for(Map.Entry<Personne,Elevator> entry : listBestE.entrySet()){
+
               int nbLoadPers=0, nbUnLoadPers=0;
               Personne keyP = entry.getKey();
               Elevator valueE = entry.getValue();
 
-              for(Personne p : el.getListPassagers()){
-                if(el.getCurrentFloor() == p.getEndFloor()){
-                  el.removePassager(p);
+              // debarque tout les personnes de l'elevator qui sont déjà arrivé
 
-                  System.out.println("remove " + p);
-                  waitingList.remove(p);
-                  
-                  displayWaitingList(waitingList);
 
-                  nbUnLoadPers++;
-                }
+              // for(Personne p : el.getListPassagers()){
+              //   if(el.getCurrentFloor() == p.getEndFloor()){
+              //     el.getListPassagers().remove(p);
+              //     System.out.println("\n\nDebarquement de personne id=" + p.getIdPersonne());
+              //     System.out.println("remove " + p);
+              //     waitingList.remove(p);
+              //
+              //     displayWaitingList(waitingList);
+              //
+              //     nbUnLoadPers++;
+              //   }
+              // }
+
+              Iterator<Personne> i = el.getListPassagers().iterator();
+
+              while (i.hasNext()) {
+                Personne s = i.next(); // must be called before you can call i.remove()
+                if(el.getCurrentFloor() == s.getEndFloor()){
+                    i.remove();
+                    waitingList.remove(s);
+                    nbUnLoadPers++;
+                    System.out.println("\n\nDebarquement de personne id=" + s.getIdPersonne());
+                }// Do something
               }
 
-              if(el.getIdElevator() == valueE.getIdElevator()){
+              if(el.getIdElevator() == valueE.getIdElevator() && el.getCurrentFloor() == keyP.getStartFloor()){
                 boolean b = el.addPassager(keyP);
 
                 if(!b){
@@ -130,6 +156,7 @@ public class Controller_Politique1 extends Controller{
                 }
 
                 else{
+                  el.addDestinationNoDuplicate(keyP.getEndFloor());
                   nbLoadPers++;
                 }
                 System.out.println("Step:" + step_sim + " " + el +" avec " + keyP);
@@ -139,87 +166,97 @@ public class Controller_Politique1 extends Controller{
               el.setLockTime(step_sim+waitLoad);
             }
 
+          }
 
-
-            // loadUnloadPassagers(listBestE,el,waitingList,step_sim);
-            // Pour ajouter les personnes dans leurs ascenceurs
-
-            //
-            // for(Map.Entry<Personne,Elevator> entry : listBestE.entrySet()){
-            //   int nbLoadPers=0, nbUnLoadPers=0;
-            //   Personne keyP = entry.getKey();
-            //   Elevator valueE = entry.getValue();
-            //
-            //   for(Personne p : el.getListPassagers()){
-            //     if(el.getCurrentFloor() == p.getEndFloor()){
-            //       el.removePassager(p);
-            //       waitingList.remove(p);
-            //       nbUnLoadPers++;
-            //     }
-            //   }
-            //
-            //   if(el.getIdElevator() == valueE.getIdElevator()){
-            //     boolean b = el.addPassager(keyP);
-            //     if(!b){
-            //       el.getListPassagers().get(keyP).addNextStep();
-            //     }
-            //     else{
-            //       nbLoadPers++;
-            //     }
-            //     System.out.println("Step:" + step_sim + " " + el + "         " + keyP.getIdPersonne());
-            //
-            //   }
-            //   int waitLoad = compute(nbLoadPers, nbUnLoadPers, el.getNbPassagers());
-            //
-            // }
-            //
-
+          else if(el.getCurrentFloor() < Collections.max(el.getListDestinations()) ){
+            Collections.sort(el.getListDestinations());
+            el.setState("up");
+            el.stepUp();
+            System.out.println("Monte ! pour ascenceur" + el);
 
           }
+          else if(el.getCurrentFloor() >  Collections.max(el.getListDestinations()) ){
+            Collections.sort(el.getListDestinations(),Collections.reverseOrder());
+            System.out.println("descend !");
+            el.setState("down");
+            el.stepDown();
+          }
         }
-
       }
+
       step_sim++;
     }
   }
 
+
   private Elevator bestElevator(Personne p, ArrayList<Elevator> myListElevator){
     // ArrayList<Elevator> myListElevator= new ArrayList<>(getListElevator_Controller());
+
     Elevator max = myListElevator.get(0);
     Elevator bestElevator = max;
     int diffStep=(max.getMaxFloor());
 
+    if(p.isGoingUp()){
+      for(Elevator e : myListElevator){
+        int calc= calcDiffStep(e,p);
+        if(e.isGoUp() || e.isWaiting()){
+          if(calc <= 0){
+            if(calc <= diffStep){
+              diffStep=calc;
+              bestElevator=e;
+            }
+          }
+        }
+      }
+    }
+    else{
+      for(Elevator e : myListElevator){
+        int calc= calcDiffStep(e,p);
+        if(e.isGoDown() || e.isWaiting()){
+          if(calc >= 0){
+            if(calc <= diffStep){
+              diffStep=calc;
+              bestElevator=e;
 
-    for(Elevator e : myListElevator){
-      int calc= calcDiffStep(e,p);
-      if(calc == 0){
-        diffStep= calc;
-        bestElevator = e;
-      }
-      else if(calc < 0){
-        if(calc < diffStep){
-          if(p.isGoingUp() && e.isGoUp()){
-            bestElevator = e;
-            diffStep= calc;
+            }
           }
         }
-      }
-      else if(calc > 0){
-        if(calc < diffStep){
-          if(!p.isGoingUp() && e.isGoDown()){
-            bestElevator = e;
-            diffStep= calc;
-          }
-        }
-      }
-      else if(e.isWaiting()){
-        bestElevator = e;
-        diffStep = calc;
       }
     }
 
     return bestElevator;
   }
+
+// bestElevator Version 1
+    // for(Elevator e : myListElevator){
+    //   int calc= calcDiffStep(e,p);
+    //   if(calc == 0){
+    //     diffStep= calc;
+    //     bestElevator = e;
+    //   }
+    //   else if(calc < 0){
+    //     if(calc < diffStep){
+    //       if(p.isGoingUp() && e.isGoUp()){
+    //         bestElevator = e;
+    //         diffStep= calc;
+    //       }
+    //     }
+    //   }
+    //   else if(calc > 0){
+    //     if(calc < diffStep){
+    //       if(!p.isGoingUp() && e.isGoDown()){
+    //         bestElevator = e;
+    //         diffStep= calc;
+    //       }
+    //     }
+    //   }
+    //   else if(e.isWaiting()){
+    //     bestElevator = e;
+    //     diffStep = calc;
+    //   }
+    // }
+// ############################################################
+
 
   private int calcDiffStep(Elevator e, Personne p){
     return e.getCurrentFloor() - p.getStartFloor();

@@ -81,6 +81,6 @@ public class Personne{
 
   @Override
   public String toString(){
-    return ("Personne " +  getIdPersonne() + ", at step: " + getStep());
+    return ("Personne " +  getIdPersonne() + ", my state " + this.dir + ", at step: " + getStep());
   }
 }

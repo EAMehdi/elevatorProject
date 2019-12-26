@@ -5,7 +5,7 @@ public class Elevator
   private static int count = 1;
   private int idElevator, currentFloor, minFloor, maxFloor, nbPassagers, maxPassagers, velocity,lockTime;
   private ArrayList<Personne> listePassagers;
-  private Queue<Integer> destinations;
+  private LinkedList<Integer> destinations;
   private enum ElevatorState {wait,goUp,goDown};
   private ElevatorState state;
 
@@ -108,7 +108,7 @@ public class Elevator
     for(Personne pe : this.getListPassagers()){
       if(pe.getIdPersonne() == p.getIdPersonne()){
         this.listePassagers.remove(p);
-
+        return true;
       }
     }
     return false;
@@ -142,6 +142,18 @@ public class Elevator
     this.destinations.add(n);
   }
 
+  public void addDestinationNoDuplicate(int n){
+    boolean doublon=false;
+    for(int i : this.destinations){
+      if(i == n){
+        doublon = true;
+      }
+    }
+    if(!doublon){
+      addDestination(n);
+    }
+  }
+
   public int getNextDestination(){
     return this.destinations.peek();
   }
@@ -150,7 +162,7 @@ public class Elevator
     this.destinations.remove();
   }
 
-  public Queue<Integer> getListDestinations(){
+  public LinkedList<Integer> getListDestinations(){
     return this.destinations;
   }
 
@@ -187,7 +199,7 @@ public class Elevator
 
 
   public boolean isGoDown(){
-    if(this.state == ElevatorState.goUp)
+    if(this.state == ElevatorState.goDown)
     return true;
     return false;
   }
@@ -211,6 +223,7 @@ public class Elevator
 
   public String toString(){
     String msg = "Elevator: "+this.idElevator;
+    msg+= ", MyState: " + this.state;
     msg+= " currentFloor: " + getCurrentFloor();
     if(!this.listePassagers.isEmpty()){
       msg+=" listePas:(";

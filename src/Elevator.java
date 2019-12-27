@@ -3,12 +3,22 @@ import java.util.*;
 public class Elevator
 {
   private static int count = 1;
-  private int idElevator, currentFloor, minFloor, maxFloor, nbPassagers, maxPassagers, velocity,lockTime;
-  private ArrayList<Personne> listePassagers;
-  private LinkedList<Integer> destinations;
-  private enum ElevatorState {wait,goUp,goDown};
+  private int idElevator, currentFloor, minFloor, maxFloor, nbPassagers, maxPassagers, velocity;
+  private int lockTime; // The step until the Elevator can move
+  private ArrayList<Personne> listePassagers; // list of Personne inside the elevator
+  private LinkedList<Integer> destinations; // list of floors destinations
+  private enum ElevatorState {wait,goUp,goDown}; // Different state
+  // wait == stay in place, goUp == going Up...
   private ElevatorState state;
 
+  /**
+  * Constructor of Elevator
+  * @param currentF [The current floor]
+  * @param maxF     [The top floor he can get in]
+  * @param nbrPa    [Number of people inside the Elevator]
+  * @param maxP     [Maximum authorized people inside the elevator]
+  * @param vly      [Velocity of the elevator]
+  */
 
   public Elevator(int currentF, int maxF, int nbrPa, int maxP, int vly)
   {
@@ -26,6 +36,13 @@ public class Elevator
     this.velocity=vly;
   }
 
+
+  /**
+  * [Elevator description]
+  * @param maxF [Max Floor he can reach]
+  * @param maxP [Maximum number of passanger]
+  * @param vly  [Velocity of the elevator]
+  */
   public Elevator(int maxF, int maxP, int vly)
   {
     this.currentFloor=0;
@@ -134,11 +151,21 @@ public class Elevator
     setCurrentFloor(getCurrentFloor()+1);
   }
 
+  public void stepUpLockTime(int n){
+    setCurrentFloor(getCurrentFloor()+1);
+    setLockTime(n+getVelocity());
+  }
+  
   public void stepDown(){
     setCurrentFloor(getCurrentFloor()-1);
   }
 
-  public void addDestination(int n){
+  public void stepDownLockTime(int n){
+    setCurrentFloor(getCurrentFloor()-1);
+    setLockTime(n+getVelocity());
+  }
+
+  private void addDestination(int n){
     this.destinations.add(n);
   }
 

@@ -1,12 +1,18 @@
 import java.util.*;
 
+/** Main Class with the Menu
+* @author Mehdi EL AYADI
+* @author Zakarya BOUALI
+*/
 public class Main {
   public static void main (String[] args){
 
     // Open Menu Principale
     //menu();
+    //
     Controller_Politique1 cp= new Controller_Politique1();
-    cp.simulationPolitique1Until();
+    // cp.simulationPolitique1Until();
+    //
   }
 
   public static void menu(){
@@ -15,7 +21,7 @@ public class Main {
     String choix1 = "Read Config.txt, Tapez 1";
     String choix2 = "Tapez 2";
     String choix3 = "Tapez 3";
-    String choix4 = "Tapez 4";
+    String choix4 = "Tapez 4 - Loi de Poisson";
     String choix10 = "EXIT : Tapez 10 or 0";
     String header = "===================== S I M U L A T E U R    A S C E N C E U R ===================";
 
@@ -68,7 +74,10 @@ public class Main {
           break;
           case 4:
           System.out.println("Mazette ! choix=4 !\n");
+
+
           break;
+
           case 10:
           System.out.println("Fin");
           System.exit(0);

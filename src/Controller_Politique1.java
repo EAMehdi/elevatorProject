@@ -9,13 +9,18 @@ public class Controller_Politique1 extends Controller{
   public Controller_Politique1(){
     super();
     super.addElevators();
-    super.addPersonnesFromFile();
+    try{
+    super.addPersonnesRandom(100,10);
+    }
+    catch(Exception e){
+      System.out.println(e.getMessage());
+    }
   }
-
-  public void destination(Integer elevatorId, Integer destinationFloor) {
-    getListElevator_Controller().get(elevatorId).addDestination(destinationFloor);
-  }
-
+  //
+  // public void destination(Integer elevatorId, Integer destinationFloor) {
+  //   getListElevator_Controller().get(elevatorId).addDestination(destinationFloor);
+  // }
+  //
 
   // Stop => Plus personne qui attendre
   // Politique 1 => Ascenseur monte/descend, prend que les personnes dans le sens dans lequel elle est
@@ -109,6 +114,8 @@ public class Controller_Politique1 extends Controller{
             for(Map.Entry<Personne,Elevator> entry : listBestE.entrySet()){
               System.out.println(entry.getKey() + " ######## " + entry.getValue());
             }
+
+
             for(Map.Entry<Personne,Elevator> entry : listBestE.entrySet()){
 
               int nbLoadPers=0, nbUnLoadPers=0;
@@ -171,7 +178,7 @@ public class Controller_Politique1 extends Controller{
           else if(el.getCurrentFloor() < Collections.max(el.getListDestinations()) ){
             Collections.sort(el.getListDestinations());
             el.setState("up");
-            el.stepUp();
+            el.stepUpLockTime(step_sim);
             System.out.println("Monte ! pour ascenceur" + el);
 
           }
@@ -179,7 +186,7 @@ public class Controller_Politique1 extends Controller{
             Collections.sort(el.getListDestinations(),Collections.reverseOrder());
             System.out.println("descend !");
             el.setState("down");
-            el.stepDown();
+            el.stepDownLockTime(step_sim);
           }
         }
       }
@@ -189,6 +196,12 @@ public class Controller_Politique1 extends Controller{
   }
 
 
+/**
+ * Get the the Elevator for a Personne from a list of Elevator
+ * @param  p              [description]
+ * @param  myListElevator [description]
+ * @return                [description]
+ */
   private Elevator bestElevator(Personne p, ArrayList<Elevator> myListElevator){
     // ArrayList<Elevator> myListElevator= new ArrayList<>(getListElevator_Controller());
 

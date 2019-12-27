@@ -14,6 +14,7 @@ public class Personne{
     this.endFloor=theEndFloor;
     setDirection();
   }
+
   public Personne(int id, int theStep, int theStartFloor, int theEndFloor){
     this.idPersonne= id;
     this.step=theStep;
@@ -81,6 +82,6 @@ public class Personne{
 
   @Override
   public String toString(){
-    return ("Personne " +  getIdPersonne() + ", my state " + this.dir + ", at step: " + getStep());
+    return ("Personne " +  getIdPersonne() + ", my state " + this.dir + ", at step: " + getStep() + "\n\tfrom: "+ getStartFloor() + " to: " + getEndFloor());
   }
 }

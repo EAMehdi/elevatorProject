@@ -1,14 +1,23 @@
 import java.util.*;
 
+/**
+*
+*/
 public class Controller implements TransfertTime{
   private ArrayList<Elevator> listElevator_Controller;
   private ArrayList <Personne> listPersonne_Controller;
 
+  /**
+  * Controller class constructor
+  */
   public Controller(){
     listElevator_Controller = new ArrayList<>();
     listPersonne_Controller = new ArrayList<>();
   }
 
+  /**
+  * Add Elevators in listElevator_Controller (here from the file config.txt)
+  */
   protected void addElevators(){
     Map<String, Integer> configValues = new HashMap<>();
     try{
@@ -30,16 +39,50 @@ public class Controller implements TransfertTime{
         System.out.println(e);
       }
     }
-
   }
 
-  // ajout random loi de poisson
-  private void addPersonnesRandom(ArrayList lP){
-    this.listPersonne_Controller= lP;
-  }
+  protected void addPersonnesRandom(int n,int avg) throws Exception{
+    if(!this.listPersonne_Controller.isEmpty()){
+      throw new Exception("List of Personne already completed");
+    }
+    else{
+      try{
+        int maxFloor;
+        Map<String, Integer> configValues = new HashMap<>();
+        configValues = FileRead.readConfig();
+        maxFloor = configValues.get("nbFloors");
 
-  // ajout from file
-  protected void addPersonnesFromFile(){
+        int i=0;
+        ArrayList<Personne> randomList = new ArrayList<>();
+        PoissonDistribution poissonStep = new PoissonDistribution(avg);
+        i = n;
+        while ( i > 0 ) {
+          int start,end;
+          start =new Random().nextInt(maxFloor);
+          end =new Random().nextInt(maxFloor);
+          while(end == start){
+            end =new Random().nextInt(maxFloor);
+          }
+          this.listPersonne_Controller.add(new Personne ((int)poissonStep.next(),start,end));
+          i--;
+        }
+      }
+      catch(Exception e){
+        System.out.println(e.getMessage());
+      }
+      System.out.println("displayed random list of personne");
+      displayListPersonne();
+    }
+}
+
+/**
+* Add Personnes in listPersonne_Controller (from a File)
+*/
+protected void addPersonnesFromFile() throws Exception{
+  if(!this.listPersonne_Controller.isEmpty()){
+    throw new Exception("List of Personne already completed");
+  }
+  else{
     ArrayList<Personne> fileList = new ArrayList<>();
     try{
       fileList = FileRead.readPersonFile();
@@ -49,27 +92,35 @@ public class Controller implements TransfertTime{
       System.out.println(e.getMessage());
     }
   }
+}
 
-  public  ArrayList <Personne> getListPersonne(){
-    return this.listPersonne_Controller;
-  }
-  public  ArrayList <Elevator> getListElevator(){
-    return this.listElevator_Controller;
-  }
+public  ArrayList <Personne> getListPersonne(){
+  return this.listPersonne_Controller;
+}
+public  ArrayList <Elevator> getListElevator(){
+  return this.listElevator_Controller;
+}
 
-  public int compute(int in, int out, int stay){
-    if(in+out > stay){
-      return stay-in-out;
-    }
-    return 0;
+public int compute(int in, int out, int stay){
+  if(in+out > stay){
+    return stay-in-out;
   }
+  return 0;
+}
 
-  protected ArrayList<Elevator> getListElevator_Controller(){
-    return this.listElevator_Controller;
-  }
 
-  protected ArrayList<Personne> getListPersonne_Controller(){
-    return this.listPersonne_Controller;
+protected ArrayList<Elevator> getListElevator_Controller(){
+  return this.listElevator_Controller;
+}
+
+protected ArrayList<Personne> getListPersonne_Controller(){
+  return this.listPersonne_Controller;
+}
+
+private void displayListPersonne(){
+  for(Personne p : this.listPersonne_Controller){
+    System.out.println(p);
   }
+}
 
 }

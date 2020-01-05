@@ -8,20 +8,11 @@ public class Main {
   public static void main (String[] args){
     // Open Menu Principale
     menu();
-
-    // DataCollector dc = new DataCollector();
-    // int i = 0;
-    // while(i<5){
-    //   Controller_Politique1 c1 = new Controller_Politique1(5,1);
-    //   dc.addSimData(c1.simulationPolitique1Until());
-    //   i++;
-    // }
-    // System.out.println(dc);
   }
 
-
-
-
+/**
+ * Main Menu
+ */
   public static void menu(){
     // Set all the displayed String
     String choix1 = "1- Simulation avec une politique classique (Politique1)";
@@ -78,6 +69,10 @@ public class Main {
 
   }
 
+/**
+ * Display the second menu
+ * @param n correspond to the Politique we are using (Example: n = 2 <=> Politique 2)
+ */
   public static void menu2(int n){
     // Set all the displayed String
     String choix1 = "1- Lire depuis le fichier personne.txt";
@@ -91,7 +86,6 @@ public class Main {
     // Int Getter
     Scanner scanner = new Scanner(System.in);
     int choice=1;
-
     while(choice != 0){
       try{
 
@@ -100,34 +94,50 @@ public class Main {
         switch (choice) {
           case 1:
           if(n==1){
+            int step_max = inputMaxStep();
+            DataCollector dc = new DataCollector();
             System.out.println("Politique 1 - Lecture depuis le fichier");
             Controller_Politique1 cp= new Controller_Politique1();
-            cp.simulationPolitique1Until();
+            if(step_max == 0){
+              dc.addSimData(cp.simulationPolitique1Until());
+            }
+            else{
+              dc.addSimData(cp.simulationPolitique1(step_max));
+            }
             System.exit(0);
           }
           else if(n==2){
             System.out.println("Politique 2 - Lecture depuis le fichier");
+            System.out.println("Functionnality not added");
+            System.exit(0);
           }
           break;
           case 2:
           ArrayList<Integer> valeurs = new ArrayList<>();
           valeurs = getPoisson();
           if(n==1){
-            int max=0;
+            int until=1;//number until it equals to the numbers of steps
+            int step_max = inputMaxStep();
             DataCollector dc = new DataCollector();
-
             System.out.println("Politique 1 - Liste Personne Alétoire");
             System.out.println("ok");
-            while(max <= valeurs.get(2)){
+            while(until <= valeurs.get(2)){
               Controller_Politique1 cp= new Controller_Politique1(valeurs.get(0), valeurs.get(1));
-              dc.addSimData(cp.simulationPolitique1Until());
-              max++;
+              if(step_max == 0){
+                dc.addSimData(cp.simulationPolitique1Until());
+              }
+              else{
+                dc.addSimData(cp.simulationPolitique1(step_max));
+              }
+              until++;
             }
             System.out.println(dc);
             System.exit(0);
           }
           else if(n==2){
             System.out.println("Politique 2 - Liste Personne Alétoire");
+            System.out.println("Functionnality not added");
+            System.exit(0);
           }
           break;
           case 10:
@@ -148,7 +158,10 @@ public class Main {
   }
 
 
-
+/**
+ * Poisson paramaters input Menu
+ * @return an ArrayList with all the needed values (0: number of people; 1: Intervale, 2: number of simulations)
+ */
   public static ArrayList<Integer> getPoisson(){
     // Set all the displayed String
     String choix1 = "\nLe nombre de personne dans la simulation:";
@@ -203,7 +216,7 @@ public class Main {
           System.out.println("veuillez enter un chiffre au dessus de 0");
         }
         else{
-          System.out.println("Voulez vous faire :" + nbSimulation + " simulation ? (y/n)");
+          System.out.println("Voulez vous faire : " + nbSimulation + " simulation ? (y/n)");
           String s2= scanner.next();
           if(s2.equalsIgnoreCase("Y")){
             isNbSimOk = true;
@@ -222,4 +235,52 @@ public class Main {
     return values;
   }
 
+
+/**
+ * Menu to get maximum number of steps we need
+ * @return the maximum step we can
+ */
+  public static int inputMaxStep(){
+    // Set all the displayed String
+    String choix1 = "\nLe nombre de pas (step) maximum de la simulation (Tapez 0 pour allez jusqu'a la fin):";
+    Scanner scanner = new Scanner(System.in);
+    int nbStepInput=0;
+    boolean isNumberOk = false;
+    try{
+      System.out.println(choix1);
+      while(!isNumberOk){
+
+        nbStepInput = scanner.nextInt();
+        if(nbStepInput <= 0){
+          System.out.println("Etes vous sur de faire une simulation en allant jusqu'a la fin (y/n)");
+          String s1= scanner.next();
+          if(s1.equalsIgnoreCase("Y")){
+            isNumberOk = true;
+          }
+        }
+        else{
+          System.out.println("Etes vous sur de faire une simulation de " + nbStepInput + " Steps ? (y/n)");
+          String s1= scanner.next();
+          if(s1.equalsIgnoreCase("Y")){
+            isNumberOk = true;
+          }
+        }
+      }
+    }
+    catch(InputMismatchException  e){
+      System.out.println("Vous n'avez pas entrer une valeur correcte !");
+      scanner.next(); // clear le scanner
+    }
+    return nbStepInput;
+  }
 }
+
+
+// DataCollector dc = new DataCollector();
+// int i = 0;
+// while(i<5){
+//   Controller_Politique1 c1 = new Controller_Politique1(5,1);
+//   dc.addSimData(c1.simulationPolitique1Until());
+//   i++;
+// }
+// System.out.println(dc);

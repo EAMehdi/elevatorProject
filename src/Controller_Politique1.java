@@ -24,10 +24,10 @@ public class Controller_Politique1 extends Controller{
       System.out.println(e.getMessage());
     }
   }
+
   /**
   * Constructor with a list of personne from the file
   */
-
   public Controller_Politique1(){
     super();
     super.addElevators();
@@ -39,10 +39,19 @@ public class Controller_Politique1 extends Controller{
     }
   }
 
+/**
+ * Lauch simulation, it stop when nobody is waiting
+ * @return Data collected in a DataCollection
+ */
   public DataCollection simulationPolitique1Until(){
     return simulation(-1);
   }
 
+  /**
+   * Launch simulation with a maximum of step possible
+   * @param  nbMaxStep Number of maximum step possible
+   * @return           Data collected in a DataCollection
+   */
   public DataCollection simulationPolitique1(int nbMaxStep){
     return simulation(nbMaxStep);
   }
@@ -87,7 +96,7 @@ public class Controller_Politique1 extends Controller{
       }
 
       if(waitingList.isEmpty()){
-        System.out.println("\n °°°°°°°°°°°°°°°°°°°°°°END °°°°°°°°°°°°°°°°°°°");
+        System.out.println("\n###################### END #############################");
         dc.setDataCollection(step_sim, waitingList.size());
         stopSimulation = true;
       }
@@ -204,12 +213,12 @@ public class Controller_Politique1 extends Controller{
             Collections.sort(el.getListDestinations());
             el.setState("up");
             el.stepUpLockTime(step_sim);
-            System.out.println("Monte ! pour ascenceur" + el);
+            System.out.println("Going up ! pour ascenceur" + el);
 
           }
           else if(el.getCurrentFloor() >  Collections.max(el.getListDestinations()) ){
             Collections.sort(el.getListDestinations(),Collections.reverseOrder());
-            System.out.println("descend !");
+            System.out.println("Going Down !");
             el.setState("down");
             el.stepDownLockTime(step_sim);
           }

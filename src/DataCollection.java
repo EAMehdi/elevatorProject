@@ -1,3 +1,6 @@
+/**
+ * Data Collection of a simulation
+ */
 public class DataCollection{
 
   int timePassed,nbWaiting;

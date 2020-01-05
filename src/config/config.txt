@@ -1,4 +1,4 @@
 nbFloors: 6
 nbLifts: 4
 capacity: 10
-velocity: 5
+velocity: 0

@@ -1,5 +1,8 @@
 import java.util.Comparator;
-
+/** Personne who goes into the elevator
+* @author Mehdi EL AYADI
+* @author Zakarya BOUALI
+*/
 public class Personne{
   private static int count = 0;
   private int idPersonne, step , startFloor, endFloor;

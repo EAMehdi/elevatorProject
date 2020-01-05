@@ -27,7 +27,7 @@ public class PoissonDistribution{
     }
 
   public long next(){
-    int r=0;
+    int r=1;
     double q= 1.0*getNextDouble();
     while(q>p){
       r=r+1;

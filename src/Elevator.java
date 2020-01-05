@@ -1,5 +1,10 @@
 import java.util.*;
 
+/** Elevator Class
+* @author Mehdi EL AYADI
+* @author Zakarya BOUALI
+*/
+
 public class Elevator
 {
   private static int count = 1;
@@ -13,13 +18,12 @@ public class Elevator
 
   /**
   * Constructor of Elevator
-  * @param currentF [The current floor]
-  * @param maxF     [The top floor he can get in]
-  * @param nbrPa    [Number of people inside the Elevator]
-  * @param maxP     [Maximum authorized people inside the elevator]
-  * @param vly      [Velocity of the elevator]
+  * @param currentF The current floor
+  * @param maxF     The Maximum floor accessible
+  * @param nbrPa    Number of people inside the Elevator
+  * @param maxP     Maximum number of authorized people inside the elevator
+  * @param vly      Velocity of the elevator
   */
-
   public Elevator(int currentF, int maxF, int nbrPa, int maxP, int vly)
   {
     this.currentFloor=currentF;
@@ -38,10 +42,10 @@ public class Elevator
 
 
   /**
-  * [Elevator description]
-  * @param maxF [Max Floor he can reach]
-  * @param maxP [Maximum number of passanger]
-  * @param vly  [Velocity of the elevator]
+  * Simple Elevator Constructor
+  * @param maxF The Maximum floor accessible
+  * @param maxP Maximum number of passanger
+  * @param vly  Velocity of the elevator
   */
   public Elevator(int maxF, int maxP, int vly)
   {
@@ -54,6 +58,22 @@ public class Elevator
 
     this.idElevator= this.count++;
     this.minFloor= 0; // les étages sont numérotés de 0 à n
+    this.maxFloor=maxF;
+    this.maxPassagers=maxP;
+    this.velocity=vly;
+  }
+
+  public Elevator(int maxF, int minF, int maxP, int vly)
+  {
+    this.currentFloor=0;
+    this.nbPassagers=0;
+    this.state=ElevatorState.wait;
+    this.lockTime=0;
+    this.destinations = new LinkedList<>();
+    this.listePassagers = new ArrayList<>();
+
+    this.idElevator= this.count++;
+    this.minFloor= minF; // les étages sont numérotés de 0 à n
     this.maxFloor=maxF;
     this.maxPassagers=maxP;
     this.velocity=vly;
@@ -155,7 +175,7 @@ public class Elevator
     setCurrentFloor(getCurrentFloor()+1);
     setLockTime(n+getVelocity());
   }
-  
+
   public void stepDown(){
     setCurrentFloor(getCurrentFloor()-1);
   }

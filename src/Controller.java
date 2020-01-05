@@ -1,9 +1,10 @@
 import java.util.*;
 
-/**
-*
+/**Controller
+* @author Mehdi EL AYADI
+* @author Zakarya BOUALI
 */
-public class Controller implements TransfertTime{
+public abstract class Controller implements TransfertTime{
   private ArrayList<Elevator> listElevator_Controller;
   private ArrayList <Personne> listPersonne_Controller;
 
@@ -36,17 +37,25 @@ public class Controller implements TransfertTime{
     }
     finally{
       for(Elevator e : this.listElevator_Controller){
-        System.out.println(e);
+        //System.out.println(e);
       }
     }
   }
 
+  /**
+   * Add Personne in listPersonne_Controller randomly with Poisson Distribution
+   * @param  n         nmber of personnes
+   * @param  avg       Average time in Poisson Distribution
+   * @throws Exception Send error if doesn't work
+   */
   protected void addPersonnesRandom(int n,int avg) throws Exception{
+
     if(!this.listPersonne_Controller.isEmpty()){
       throw new Exception("List of Personne already completed");
     }
     else{
       try{
+        ArrayList<Personne> mylistePersonne = new ArrayList<>();
         int maxFloor;
         Map<String, Integer> configValues = new HashMap<>();
         configValues = FileRead.readConfig();
@@ -63,15 +72,19 @@ public class Controller implements TransfertTime{
           while(end == start){
             end =new Random().nextInt(maxFloor);
           }
-          this.listPersonne_Controller.add(new Personne ((int)poissonStep.next(),start,end));
+          mylistePersonne.add(new Personne ((int)poissonStep.next(),start,end));
           i--;
         }
+
+
+          PersonneSorter sortedP = new PersonneSorter(mylistePersonne);
+          this.listPersonne_Controller= sortedP.getSortByStep();
       }
       catch(Exception e){
         System.out.println(e.getMessage());
       }
-      System.out.println("displayed random list of personne");
-      displayListPersonne();
+      //System.out.println("displayed random list of personne");
+      //displayListPersonne();
     }
 }
 
@@ -102,9 +115,9 @@ public  ArrayList <Elevator> getListElevator(){
 }
 
 public int compute(int in, int out, int stay){
-  if(in+out > stay){
-    return stay-in-out;
-  }
+  // if(in+out > stay){
+  //   return stay-in-out;
+  // }
   return 0;
 }
 

@@ -316,7 +316,7 @@ public class Controller_Politique1 extends Controller{
   private void displayWaitingList(LinkedList<Personne> list){
     System.out.println("WAITING LIST");
     for(Personne o : list){
-      System.out.println("Coucou "+o);
+      System.out.println("Here\n"+o);
     }
 
     System.out.println("--------------");
